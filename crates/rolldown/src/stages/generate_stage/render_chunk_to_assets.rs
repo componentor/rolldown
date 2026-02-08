@@ -56,7 +56,8 @@ impl GenerateStage<'_> {
 
     Self::minify_chunks(self.options, &mut instantiated_chunks)?;
 
-    Self::post_banner_footer(&mut instantiated_chunks)?;
+    let post_banner_warnings = Self::post_banner_footer(&mut instantiated_chunks)?;
+    warnings.extend(post_banner_warnings);
 
     let assets = finalize_assets(
       chunk_graph,
@@ -302,7 +303,7 @@ impl GenerateStage<'_> {
               } else {
                 0
               };
-              module.render(self.options, &ModuleRenderArgs::Ecma { ast }, initial_indent)
+              Some(module.render(self.options, &ModuleRenderArgs::Ecma { ast }, initial_indent))
             }
             _ => None,
           })

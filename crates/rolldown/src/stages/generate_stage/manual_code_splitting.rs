@@ -160,13 +160,6 @@ impl GenerateStage<'_> {
     }
 
     let mut module_groups = index_module_groups.raw;
-    module_groups.sort_by_cached_key(|item| {
-      Reverse((Reverse(item.priority), item.match_group_index, item.name.clone()))
-    });
-    // - Higher priority group goes first.
-    // - If two groups have the same priority, the one with the lower index goes first.
-    // - If two groups have the same priority and index, we use dictionary order to sort them.
-    // Outer `Reverse` is due to we're gonna use `pop` consume the vector.
 
     module_groups.retain(|group| !group.modules.is_empty());
     if module_groups.is_empty() {
@@ -174,11 +167,19 @@ impl GenerateStage<'_> {
       return Ok(());
     }
 
-    // Manually pull out the module `rolldown:runtime` into a standalone chunk.
+    // - Higher priority group goes first.
+    // - If two groups have the same priority, the one with the lower index goes first.
+    // - If two groups have the same priority and index, we use dictionary order to sort them.
+    // Outer `Reverse` is due to we're gonna use `pop` consume the vector.
+    module_groups.sort_by_cached_key(|item| {
+      Reverse((Reverse(item.priority), item.match_group_index, item.name.clone()))
+    });
+
+    // Manually pull out the runtime module into a standalone chunk.
     let runtime_module_idx = self.link_output.runtime.id();
     assert!(
       matches!(&self.link_output.module_table[runtime_module_idx], Module::Normal(_)),
-      "`rolldown:runtime` is always a normal module"
+      "rolldown runtime is always a normal module"
     );
 
     if metas[runtime_module_idx].is_included {

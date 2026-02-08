@@ -27,9 +27,12 @@ napi = { workspace = true }
 napi-derive = { workspace = true }
 num_cpus = { workspace = true }
 oxc = { workspace = true }
+oxc_napi = { workspace = true }
 oxc_minify_napi = { workspace = true }
 oxc_parser_napi = { workspace = true }
+oxc_resolver = { workspace = true }
 oxc_resolver_napi = { workspace = true }
+oxc_sourcemap = { workspace = true }
 oxc_transform_napi = { workspace = true }
 rolldown = { workspace = true, features = ["experimental"] }
 rolldown_common = { workspace = true }
@@ -54,7 +57,6 @@ rolldown_plugin_vite_reporter = { workspace = true }
 rolldown_plugin_vite_resolve = { workspace = true }
 rolldown_plugin_vite_transform = { workspace = true }
 rolldown_plugin_vite_wasm_fallback = { workspace = true }
-rolldown_plugin_vite_wasm_helper = { workspace = true }
 rolldown_plugin_vite_web_worker_post = { workspace = true }
 rolldown_sourcemap = { workspace = true }
 rolldown_tracing = { workspace = true }

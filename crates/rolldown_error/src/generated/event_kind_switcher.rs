@@ -43,5 +43,10 @@ bitflags! {
     const AlreadyClosedError = 1 << 36;
     const CouldNotCleanDirectory = 1 << 37;
     const PluginTimings = 1 << 38;
+    const DuplicateShebang = 1 << 39;
+    const TsConfigError = 1 << 40;
+    const UnsupportedTsconfigOption = 1 << 41;
+    const RuntimeModuleSymbolNotFoundError = 1 << 42;
+    const UntranspiledSyntaxError = 1 << 43;
   }
 }
